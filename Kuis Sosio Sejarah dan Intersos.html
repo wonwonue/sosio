@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian Sosiologi: Sejarah & Interaksi Sosial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+        }
+        .question-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .question-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .option-label {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .option-label:hover {
+            background-color: #f1f5f9;
+        }
+        .option-input:checked + .flex-container .option-letter {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .option-input:checked + .flex-container .option-text {
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+        .selected-option {
+            background-color: #eff6ff !important;
+            border-color: #3b82f6 !important;
+        }
+        .correct-answer {
+            background-color: #ecfdf5 !important;
+            border-color: #10b981 !important;
+        }
+        .correct-answer .option-text {
+            color: #065f46;
+            font-weight: 600;
+        }
+        .incorrect-answer {
+            background-color: #fef2f2 !important;
+            border-color: #ef4444 !important;
+        }
+        .incorrect-answer .option-text {
+            color: #991b1b;
+        }
+        #results-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Styling untuk tombol share */
+        #share-btn {
+            display: none;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased pb-12">
+
+    <!-- Header / Navbar -->
+    <div class="sticky-nav shadow-sm border-b border-gray-200 mb-6">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-800 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                Ujian Sosiologi
+            </h1>
+            <div class="text-sm font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                50 Soal
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4">
+        
+        <!-- Intro Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-3">Sejarah Sosiologi & Interaksi Sosial</h2>
+                <p class="text-lg opacity-90 max-w-2xl mx-auto">Evaluasi pemahamanmu tentang awal mula ilmu sosiologi dan bagaimana manusia berinteraksi dalam kehidupan sehari-hari.</p>
+            </div>
+            <div class="p-6 bg-blue-50 border-t border-blue-100 flex flex-col sm:flex-row justify-center items-center gap-6 text-sm text-blue-800">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
+                    <span>Kerjakan dengan teliti</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path></svg>
+                    <span>Pilih jawaban paling tepat</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <span>Langsung lihat skor di akhir</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Form -->
+        <form id="quiz-form">
+            <!-- Data Diri Siswa -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 mb-8 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
+                <h3 class="text-xl font-bold text-gray-800 mb-5 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    Identitas Diri
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div>
+                        <label for="nama" class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+                        <input type="text" id="nama" name="nama" required class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Masukkan nama Anda">
+                    </div>
+                    <div>
+                        <label for="kelas" class="block text-sm font-semibold text-gray-700 mb-2">Kelas <span class="text-red-500">*</span></label>
+                        <input type="text" id="kelas" name="kelas" required class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Contoh: X IPS 1">
+                    </div>
+                    <div>
+                        <label for="absen" class="block text-sm font-semibold text-gray-700 mb-2">No. Absen <span class="text-red-500">*</span></label>
+                        <input type="number" id="absen" name="absen" required min="1" class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Contoh: 15">
+                    </div>
+                </div>
+            </div>
+
+            <div id="questions-container" class="space-y-6">
+                <!-- Pertanyaan akan dimasukkan melalui JavaScript -->
+            </div>
+
+            <!-- Submit Button Area -->
+            <div class="mt-12 mb-8 text-center sticky bottom-6 z-40">
+                <div class="inline-block bg-white/80 backdrop-blur-md p-2 rounded-full shadow-lg border border-gray-200">
+                    <button type="button" id="submit-btn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 px-10 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 text-lg flex items-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Selesai & Kumpulkan
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Area Hasil -->
+        <div id="results-container" class="mt-10 p-8 bg-white rounded-2xl shadow-xl border border-gray-200 text-center relative overflow-hidden">
+            <!-- Dekorasi background -->
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+            
+            <h2 class="text-3xl font-extrabold mb-2 text-gray-800">Laporan Hasil Belajar</h2>
+            <p class="text-gray-500 mb-6">Kuis Sejarah Sosiologi & Interaksi Sosial</p>
+            
+            <!-- Box Identitas Siswa -->
+            <div class="bg-blue-50 rounded-xl p-5 mb-8 inline-block min-w-[280px] sm:min-w-[400px] border border-blue-100 text-left">
+                <div class="grid grid-cols-3 gap-y-2 gap-x-4 text-sm sm:text-base">
+                    <div class="col-span-1 text-gray-500 font-medium">Nama</div>
+                    <div class="col-span-2 font-bold text-gray-800" id="res-nama">-</div>
+                    
+                    <div class="col-span-1 text-gray-500 font-medium">Kelas</div>
+                    <div class="col-span-2 font-bold text-gray-800" id="res-kelas">-</div>
+                    
+                    <div class="col-span-1 text-gray-500 font-medium">No. Absen</div>
+                    <div class="col-span-2 font-bold text-gray-800" id="res-absen">-</div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 mb-8 bg-gray-50 p-6 rounded-xl">
+                <div class="text-center relative">
+                    <svg class="w-32 h-32 transform -rotate-90 absolute -top-4 -left-4 opacity-10 text-blue-600" viewBox="0 0 36 36"><path stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path></svg>
+                    <p class="text-sm text-gray-500 uppercase tracking-widest font-semibold mb-1">Skor Akhir</p>
+                    <div class="text-6xl font-black text-blue-600 tracking-tighter" id="final-score">0</div>
+                    <p class="text-sm text-gray-400 mt-1">Skala 0-100</p>
+                </div>
+                
+                <div class="hidden md:block w-px h-24 bg-gray-300"></div>
+                
+                <div class="text-left space-y-3">
+                    <div class="flex items-center gap-3 bg-green-50 px-4 py-2 rounded-lg border border-green-100">
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <p class="text-lg text-gray-700">Benar: <span class="font-bold text-green-700 text-xl" id="correct-count">0</span> soal</p>
+                    </div>
+                    <div class="flex items-center gap-3 bg-red-50 px-4 py-2 rounded-lg border border-red-100">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <p class="text-lg text-gray-700">Salah: <span class="font-bold text-red-700 text-xl" id="incorrect-count">0</span> soal</p>
+                    </div>
+                    <div class="flex items-center gap-3 bg-yellow-50 px-4 py-2 rounded-lg border border-yellow-100">
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <p class="text-lg text-gray-700">Kosong: <span class="font-bold text-yellow-700 text-xl" id="unanswered-count">0</span> soal</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="feedback-box" class="p-4 rounded-lg mb-8 inline-block">
+                <p id="feedback-message" class="text-xl font-medium"></p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+                <button type="button" id="review-btn" class="flex items-center justify-center gap-2 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold py-3 px-6 rounded-xl transition duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    Lihat Pembahasan
+                </button>
+                <button type="button" id="share-btn-action" onclick="window.print()" class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Cetak / Simpan PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Bank Soal (50 Soal)
+        const quizData = [
+            // --- BAGIAN 1: SEJARAH KELAHIRAN SOSIOLOGI (Soal 1-25) ---
+            {
+                q: "Pak Budi, seorang tetua desa, merasa sedih melihat warganya kini jarang bergotong royong dan lebih mementingkan diri sendiri sejak sebuah pabrik besar dibangun di dekat desa. Perubahan sosial masyarakat agraris menjadi industri seperti yang dirasakan Pak Budi inilah yang pada abad ke-19 memicu lahirnya ilmu sosiologi di Eropa. Peristiwa besar apa yang menjadi latar belakang utamanya?",
+                options: ["Revolusi Prancis", "Revolusi Industri", "Perang Dunia I", "Zaman Pencerahan (Aufklarung)", "Reformasi Gereja"],
+                answer: 1,
+                explanation: "Revolusi Industri (berpusat di Inggris) mengubah cara kerja masyarakat dari pertanian ke pabrik, memunculkan urbanisasi, individualisme, dan masalah sosial baru yang mendorong lahirnya sosiologi untuk mengkajinya."
+            },
+            {
+                q: "Setiap tanggal 1 Mei, sering terjadi demonstrasi buruh yang menuntut kenaikan upah kepada perusahaan. Andi yang melihat berita tersebut bertanya-tanya mengapa selalu ada benturan kepentingan antara pemilik modal dan pekerja. Pemikir klasik sosiologi yang teorinya (Konflik Kelas) paling relevan untuk menganalisis fenomena ini adalah...",
+                options: ["Auguste Comte", "Emile Durkheim", "Max Weber", "Karl Marx", "Herbert Spencer"],
+                answer: 3,
+                explanation: "Karl Marx adalah tokoh yang mencetuskan teori konflik kelas, yang membagi masyarakat kapitalis menjadi kelas borjuis (pemilik modal) dan proletar (buruh) yang selalu berkonflik."
+            },
+            {
+                q: "Saat pandemi COVID-19, pemerintah mewajibkan pemakaian masker. Meskipun banyak yang merasa pengap dan tidak nyaman, mereka tetap mematuhi aturan tersebut karena takut dikenakan sanksi denda. Fenomena adanya aturan dari luar individu yang memaksa perilaku individu ini dalam sosiologi disebut sebagai...",
+                options: ["Tindakan Rasional", "Imajinasi Sosiologis", "Fakta Sosial", "Struktur Makro", "Solidaritas Mekanik"],
+                answer: 2,
+                explanation: "Fakta sosial, menurut Emile Durkheim, adalah cara bertindak, berpikir, dan merasa yang berada di luar individu dan memiliki kekuatan memaksa."
+            },
+            {
+                q: "Seorang mahasiswa sosiologi meneliti tradisi Mudik Lebaran. Ia tidak sekadar menghitung jumlah pemudik, tetapi mewawancarai pemudik untuk memahami 'makna' dan motivasi terdalam mengapa mereka rela macet-macetan demi pulang kampung. Pendekatan memahami (Verstehen) makna di balik tindakan sosial ini diperkenalkan oleh...",
+                options: ["Auguste Comte", "Max Weber", "Karl Marx", "Emile Durkheim", "Georg Simmel"],
+                answer: 1,
+                explanation: "Max Weber memperkenalkan metode Verstehen, yaitu pemahaman empati terhadap tindakan sosial untuk mengetahui motif dan makna subjektif pelaku."
+            },
+            {
+                q: "Revolusi Prancis (1789) berhasil menumbangkan sistem monarki absolut dan membawa ide demokrasi. Namun, perubahan mendadak ini menimbulkan kekacauan (chaos) panjang di masyarakat Prancis. Hal ini mendorong seorang tokoh untuk menciptakan ilmu yang dapat menemukan hukum keteraturan masyarakat (order). Tokoh yang akhirnya dijuluki Bapak Sosiologi ini adalah...",
+                options: ["Karl Marx", "Emile Durkheim", "Auguste Comte", "Max Weber", "George H. Mead"],
+                answer: 2,
+                explanation: "Auguste Comte menciptakan istilah 'Sosiologi' pada tahun 1838 karena ia ingin ada ilmu yang mempelajari masyarakat secara ilmiah untuk mengembalikan keteraturan setelah kekacauan Revolusi Prancis."
+            },
+            {
+                q: "Ibu Ani selalu mengingatkan anaknya, 'Kalau makan jangan sambil jalan, tidak sopan, kualat nanti'. Alasan 'kualat' yang bersumber dari kepercayaan takhayul ini, jika dianalisis dengan hukum tiga tahap perkembangan akal budi manusia dari Auguste Comte, menunjukkan cara berpikir pada tahap...",
+                options: ["Positivistik (Ilmiah)", "Metafisik", "Tradisional", "Teologis", "Transisional"],
+                answer: 3,
+                explanation: "Tahap teologis adalah tahap di mana manusia menjelaskan fenomena di sekitarnya dengan mengaitkannya pada kekuatan gaib, roh, atau kehendak dewa/Tuhan."
+            },
+            {
+                q: "Ketika melihat kesenjangan antara orang kaya dan miskin, Budi menganggap bahwa masyarakat itu seperti tubuh manusia. Ada bagian kepala (pemerintah/pengusaha) dan kaki (pekerja kasar). Jika ada yang sakit, seluruh tubuh terpengaruh. Tokoh yang mengemukakan teori evolusi sosial organis (menyamakan masyarakat dengan organisme biologi) ini adalah...",
+                options: ["Herbert Spencer", "Karl Marx", "Emile Durkheim", "Auguste Comte", "Max Weber"],
+                answer: 0,
+                explanation: "Herbert Spencer menganalogikan masyarakat dengan organisme hidup (teori organis) dan menerapkan prinsip evolusi Darwin dalam melihat perkembangan masyarakat."
+            },
+            {
+                q: "Sosiologi memang lahir di Eropa, namun jauh sebelum itu, pemikir Islam pada abad ke-14 telah menulis mahakarya 'Muqaddimah' yang menganalisis siklus peradaban, kota dan desa, serta solidaritas kelompok (Asabiyyah). Tokoh yang sering diakui sebagai perintis awal sosiologi dari dunia Islam ini adalah...",
+                options: ["Ibnu Sina", "Al-Ghazali", "Ibnu Rusyd", "Ibnu Khaldun", "Al-Farabi"],
+                answer: 3,
+                explanation: "Ibnu Khaldun melalui karyanya 'Muqaddimah' telah membahas konsep-konsep sosiologis jauh sebelum sosiologi modern muncul di Eropa."
+            },
+            {
+                q: "Dono sedang merenungkan mengapa dirinya dan banyak teman seangkatannya sulit mencari kerja (pengangguran). Ia menyadari bahwa ini bukan semata-mata karena mereka malas, melainkan karena kondisi ekonomi negara sedang resesi dan banyak perusahaan bangkrut. Kemampuan Dono menghubungkan masalah personalnya dengan struktur sosial makro disebut C. Wright Mills sebagai...",
+                options: ["Fakta Sosial", "Kesadaran Kelas", "Imajinasi Sosiologi", "Tindakan Sosial", "Realitas Objektif"],
+                answer: 2,
+                explanation: "Imajinasi Sosiologi (Sociological Imagination) adalah kemampuan melihat hubungan antara pengalaman individu (personal troubles) dengan fenomena sosial masyarakat yang lebih luas (public issues)."
+            },
+            {
+                q: "Di sebuah desa adat, masyarakatnya berprofesi sama sebagai petani, sangat memegang teguh tradisi, dan memiliki ikatan batin yang kuat. Hukum yang berlaku bersifat represif (menghukum keras pelanggar). Durkheim menyebut ikatan solidaritas pada masyarakat sederhana ini sebagai...",
+                options: ["Solidaritas Organik", "Solidaritas Campuran", "Solidaritas Mekanik", "Solidaritas Semu", "Solidaritas Komunal"],
+                answer: 2,
+                explanation: "Solidaritas mekanik terjadi pada masyarakat tradisional yang homogen, di mana kesadaran kolektif sangat kuat dan individu terikat oleh kesamaan."
+            },
+            {
+                q: "Di Jakarta, warga di perumahan jarang bertegur sapa, tetapi kehidupan mereka saling bergantung. Guru butuh dokter saat sakit, dokter butuh montir untuk mobilnya, montir butuh petani untuk makan. Ikatan yang didasarkan pada spesialisasi pembagian kerja ini menurut Durkheim disebut...",
+                options: ["Solidaritas Mekanik", "Solidaritas Organik", "Tindakan Rasional", "Kesadaran Kolektif", "Hubungan Simbiotik"],
+                answer: 1,
+                explanation: "Solidaritas organik muncul pada masyarakat modern yang heterogen, didasarkan pada saling ketergantungan (interdependensi) akibat tingginya spesialisasi pembagian kerja."
+            },
+            {
+                q: "Siti sering mendengar kata 'Sosiologi'. Namun, Auguste Comte, saat pertama kali merumuskan ilmu ini, tidak langsung menamainya sosiologi. Istilah pertama yang ia gunakan untuk menyebut ilmu yang mengkaji fenomena sosial dengan metode eksak adalah...",
+                options: ["Dinamika Sosial", "Ilmu Kemanusiaan", "Fisika Sosial", "Antropologi Sosial", "Filsafat Sosial"],
+                answer: 2,
+                explanation: "Comte awalnya menggunakan istilah 'Fisika Sosial' (Social Physics), tetapi karena istilah itu dipakai oleh tokoh lain (Adolphe Quetelet), ia kemudian menggantinya menjadi Sosiologi."
+            },
+            {
+                q: "Seorang peneliti sosiologi melakukan kajian fenomena tawuran pelajar. Dalam laporannya, ia sama sekali tidak menyalahkan atau menghakimi pelajar tersebut (tidak menilai baik atau buruk), melainkan hanya menjelaskan faktor penyebab mengapa tawuran itu terjadi berdasarkan fakta lapangan. Sikap peneliti ini mencerminkan karakteristik sosiologi yang bersifat...",
+                options: ["Empiris", "Teoretis", "Kumulatif", "Non-etis", "Kategoris"],
+                answer: 3,
+                explanation: "Non-etis berarti sosiologi tidak mempersoalkan baik atau buruknya suatu fakta sosial, melainkan bertujuan menjelaskan fakta tersebut secara analitis dan objektif."
+            },
+            {
+                q: "Dalam menyusun skripsi tentang perilaku konsumtif remaja penggemar K-Pop, seorang mahasiswa menggabungkan, menyempurnakan, dan memperluas teori perilaku konsumen dan teori identitas sosial yang sudah ada sebelumnya. Hal ini menunjukkan bahwa ilmu sosiologi memiliki sifat...",
+                options: ["Empiris", "Teoretis", "Kumulatif", "Non-etis", "Spekulatif"],
+                answer: 2,
+                explanation: "Kumulatif berarti teori-teori sosiologi dibangun atas dasar teori yang sudah ada, kemudian diperbaiki, diperluas, serta disempurnakan."
+            },
+            {
+                q: "Sosiologi mulai dipelajari di Indonesia secara formal pada masa awal kemerdekaan di Akademi Ilmu Politik Yogyakarta (kini UGM) dan UI. Tokoh yang sering dijuluki Bapak Sosiologi Indonesia karena merupakan orang Indonesia pertama yang memberikan kuliah sosiologi dalam bahasa Indonesia adalah...",
+                options: ["Selo Soemardjan", "Soerjono Soekanto", "Ki Hajar Dewantara", "Soenario Kolopaking", "Hassan Shadily"],
+                answer: 3,
+                explanation: "Soenario Kolopaking adalah orang Indonesia pertama yang memberikan kuliah sosiologi dalam bahasa Indonesia (1948) di Akademi Ilmu Politik Yogyakarta."
+            },
+            {
+                q: "Budi belajar giat siang dan malam, rela mengurangi waktu bermainnya semata-mata demi mencapai target lulus masuk Kedokteran di PTN favoritnya. Tindakan Budi yang memperhitungkan cara dan tujuan ini, menurut Max Weber termasuk tipe tindakan...",
+                options: ["Tradisional", "Afektif", "Rasional Instrumental", "Rasional Berorientasi Nilai", "Irasional"],
+                answer: 2,
+                explanation: "Tindakan rasional instrumental adalah tindakan yang dilakukan dengan memperhitungkan kesesuaian antara cara yang digunakan dan tujuan yang ingin dicapai secara logis."
+            },
+            {
+                q: "Relawan SAR turun ke lokasi gempa bumi yang berbahaya untuk mengevakuasi korban. Ia tidak dibayar, bahkan mempertaruhkan nyawanya, karena ia meyakini menolong sesama adalah perintah agama dan nilai kemanusiaan tertinggi. Tindakan relawan ini digolongkan oleh Weber sebagai...",
+                options: ["Rasional Instrumental", "Rasional Berorientasi Nilai", "Afektif", "Tradisional", "Altruistik"],
+                answer: 1,
+                explanation: "Tindakan rasional berorientasi nilai dilakukan demi nilai-nilai dasar yang diyakini (agama, etika, kemanusiaan) tanpa memperhitungkan untung rugi atau hasil pragmatisnya."
+            },
+            {
+                q: "Seorang penonton sepak bola menangis histeris dan melempar botol ke lapangan saat tim kesayangannya kebobolan di menit terakhir laga final. Tindakan spontan yang sangat dipengaruhi oleh emosi sesaat ini disebut Weber sebagai tindakan...",
+                options: ["Afektif", "Tradisional", "Rasional Instrumental", "Rasional Berorientasi Nilai", "Spontan"],
+                answer: 0,
+                explanation: "Tindakan afektif adalah tindakan sosial yang sebagian besar dikuasai oleh perasaan atau emosi tanpa pertimbangan logis."
+            },
+            {
+                q: "Setiap hari raya Idul Fitri, keluarga besar Pak Ahmad memiliki kebiasaan sungkeman kepada orang tua, yang telah dilakukan turun-temurun dari kakek buyut mereka. Tindakan ini menurut klasifikasi tindakan sosial Weber disebut...",
+                options: ["Afektif", "Tradisional", "Rasional Instrumental", "Rasional Berorientasi Nilai", "Konvensional"],
+                answer: 1,
+                explanation: "Tindakan tradisional adalah tindakan yang dilakukan semata-mata karena kebiasaan atau tradisi turun-temurun tanpa dipertanyakan lagi tujuannya."
+            },
+            {
+                q: "Karl Marx berpendapat bahwa sejarah umat manusia adalah sejarah perjuangan kelas. Dalam sistem kapitalisme, kelompok yang hanya memiliki tenaga kerja untuk dijual disebut sebagai kelas...",
+                options: ["Borjuis", "Aristokrat", "Proletar", "Feodal", "Kapitalis"],
+                answer: 2,
+                explanation: "Proletar adalah istilah Karl Marx untuk kelas pekerja buruh yang tidak memiliki alat produksi sendiri dan bergantung pada upah."
+            },
+            {
+                q: "Ilmu sosiologi didasarkan pada observasi (pengamatan) langsung terhadap kenyataan sosial dengan menggunakan akal sehat, bukan menduga-duga (spekulasi). Ciri ilmu sosiologi ini disebut...",
+                options: ["Non-etis", "Kumulatif", "Teoretis", "Empiris", "Sistematis"],
+                answer: 3,
+                explanation: "Empiris berarti sosiologi mendasarkan pada pengamatan (observasi) terhadap kenyataan yang didapat melalui pancaindera dan tidak spekulatif."
+            },
+            {
+                q: "Tokoh sosiologi ini menulis buku terkenal 'The Protestant Ethic and the Spirit of Capitalism'. Ia berargumen bahwa nilai-nilai keagamaan (khususnya Protestan Calvinis) secara tidak langsung memicu lahirnya etos kerja keras yang menumbuhkan sistem kapitalisme di Eropa. Tokoh tersebut adalah...",
+                options: ["Karl Marx", "Auguste Comte", "Max Weber", "Emile Durkheim", "Talcott Parsons"],
+                answer: 2,
+                explanation: "Max Weber adalah penulis buku tersebut, yang menganalisis hubungan antara etika etos agama dan perkembangan kapitalisme modern."
+            },
+            {
+                q: "Meskipun sering disamakan masyarakat awam, sosiologi berbeda dengan psikologi. Jika psikologi lebih berfokus pada proses mental dan perilaku yang berasal dari *dalam diri individu*, maka fokus utama dari sosiologi adalah...",
+                options: ["Struktur biologis dan genetik manusia", "Masa lalu peradaban kuno", "Hubungan dan interaksi antarmanusia dalam kelompok", "Cara penyebaran sumber daya ekonomi", "Gangguan saraf manusia"],
+                answer: 2,
+                explanation: "Sosiologi memfokuskan kajiannya pada masyarakat, yakni hubungan, interaksi, struktur, dan pola hidup bersama antar manusia."
+            },
+            {
+                q: "Pernyataan Auguste Comte bahwa sosiologi adalah ilmu positif (positivisme) berarti sosiologi harus...",
+                options: ["Mencari sisi positif dan kebaikan masyarakat", "Mempelajari fenomena sosial menggunakan metode ilmiah seperti ilmu alam", "Menghilangkan pandangan negatif tentang masalah sosial", "Meyakini campur tangan hal gaib dalam masyarakat", "Membela hak-hak kelompok yang tertindas"],
+                answer: 1,
+                explanation: "Positivisme yang diusung Comte berarti ilmu sosial (sosiologi) harus dikaji menggunakan pendekatan metode ilmiah yang terukur, objektif, dan empiris selayaknya ilmu alam fisika/biologi."
+            },
+            {
+                q: "Karya monumental Emile Durkheim yang berjudul 'Suicide' (Bunuh Diri) membuktikan bahwa tindakan yang sangat personal seperti bunuh diri ternyata...",
+                options: ["Murni karena depresi genetik bawaan", "Sangat dipengaruhi oleh cuaca dan iklim setempat", "Dipengaruhi oleh tingkat integrasi dan regulasi individu dalam masyarakat", "Tidak memiliki pola dan terjadi secara acak", "Hanya terjadi pada orang-orang tidak beragama"],
+                answer: 2,
+                explanation: "Durkheim membuktikan bahwa angka bunuh diri bervariasi bergantung pada tingkat seberapa kuat individu terintegrasi dengan kelompok sosialnya (fakta sosial), bukan sekadar masalah psikologis individu."
+            },
+
+            // --- BAGIAN 2: INTERAKSI SOSIAL (Soal 26-50) ---
+            {
+                q: "Saat istirahat, Rani melihat Dinda tampak sedih. Rani menghampirinya, menepuk pundaknya, lalu Dinda tersenyum tipis merespons. Peristiwa ini merupakan contoh interaksi sosial karena telah memenuhi dua syarat utamanya, yaitu...",
+                options: ["Komunikasi dan Asimilasi", "Simpati dan Empati", "Kontak Sosial dan Komunikasi", "Sugesti dan Imitasi", "Aksi dan Reaksi"],
+                answer: 2,
+                explanation: "Syarat terjadinya interaksi sosial menurut Soerjono Soekanto adalah adanya kontak sosial (bertemunya pihak-pihak) dan komunikasi (penyampaian makna/pesan)."
+            },
+            {
+                q: "Pak Joko di Jakarta menelepon ibunya yang berada di desa menggunakan WhatsApp Call untuk menanyakan kabar. Dilihat dari caranya, kontak sosial yang terjadi antara Pak Joko dan ibunya termasuk jenis kontak...",
+                options: ["Primer", "Sekunder langsung", "Sekunder tidak langsung", "Fisik", "Pasif"],
+                answer: 1,
+                explanation: "Kontak sekunder langsung terjadi melalui perantara alat komunikasi (telepon, video call), namun kedua pihak berinteraksi pada waktu yang bersamaan."
+            },
+            {
+                q: "Seorang penyanyi terkenal asal Korea mewarnai rambutnya menjadi merah muda. Seminggu kemudian, banyak remaja di sekolah-sekolah yang ikut-ikutan mewarnai rambutnya menjadi merah muda karena ingin terlihat trendi. Faktor pendorong interaksi sosial ini adalah...",
+                options: ["Sugesti", "Simpati", "Identifikasi", "Imitasi", "Empati"],
+                answer: 3,
+                explanation: "Imitasi adalah tindakan meniru sikap, tingkah laku, atau penampilan fisik orang lain secara dangkal/sementara."
+            },
+            {
+                q: "Seorang pasien yang sedang sakit perut sangat percaya pada dokter spesialis langganannya. Ketika dokter meresepkan obat penahan sakit dan menyuruh istirahat total, pasien itu langsung percaya dan menurutinya tanpa mencari tahu kandungan obatnya. Faktor pendorong hal ini adalah...",
+                options: ["Sugesti", "Imitasi", "Identifikasi", "Simpati", "Empati"],
+                answer: 0,
+                explanation: "Sugesti adalah proses pemberian pandangan atau pengaruh dari seseorang kepada orang lain (biasanya yang punya otoritas/berwibawa) sehingga orang tersebut menerimanya tanpa berpikir kritis."
+            },
+            {
+                q: "Anton sangat mengidolakan sosok pahlawan Jenderal Soedirman. Ia tidak hanya mengoleksi gambarnya, tetapi juga berusaha meresapi nilai perjuangannya, kejujurannya, bahkan cara bicaranya di kehidupan sehari-hari, hingga Anton merasa telah 'menjadi' sosok berkarakter seperti idolanya. Proses psikologis mendalam ini disebut...",
+                options: ["Imitasi", "Sugesti", "Identifikasi", "Simpati", "Empati"],
+                answer: 2,
+                explanation: "Identifikasi adalah kecenderungan atau keinginan dalam diri seseorang untuk menjadi sama persis (identik) secara mendalam dengan orang lain."
+            },
+            {
+                q: "Mendengar berita bahwa rumah temannya terkena musibah banjir, Budi merasa sedih dan kasihan. Perasaan tertarik dan ikut merasakan kesedihan (iba) yang dialami orang lain ini disebut...",
+                options: ["Simpati", "Empati", "Sugesti", "Identifikasi", "Motivasi"],
+                answer: 0,
+                explanation: "Simpati adalah kemampuan untuk merasakan ketertarikan terhadap orang lain dan seolah-olah ikut merasakan apa yang dirasakannya, namun sebatas perasaan saja."
+            },
+            {
+                q: "Berbeda dengan Budi yang hanya merasa iba, Pak RT langsung mengumpulkan dana, menyewa perahu karet, dan terjun mengevakuasi korban banjir ke posko yang ia dirikan. Tindakan nyata yang didorong oleh kepedulian yang sangat mendalam ini disebut...",
+                options: ["Simpati", "Sugesti", "Imitasi", "Empati", "Motivasi"],
+                answer: 3,
+                explanation: "Empati adalah simpati yang mendalam yang disertai dengan tindakan nyata untuk menolong atau mengurangi beban orang yang menderita."
+            },
+            {
+                q: "Dalam ajang lomba cerdas cermat tingkat nasional, tim SMA A dan SMA B bersaing sengit adu cepat menjawab pertanyaan juri untuk memperebutkan gelar juara. Interaksi sosial disosiatif berupa perjuangan untuk mencapai kemenangan secara sportif (tanpa kekerasan) ini disebut...",
+                options: ["Konflik", "Kontravensi", "Persaingan (Kompetisi)", "Akomodasi", "Asimilasi"],
+                answer: 2,
+                explanation: "Persaingan (kompetisi) adalah proses sosial dimana pihak-pihak berlomba mencapai tujuan tertentu secara damai tanpa merugikan/menyerang pihak lawan."
+            },
+            {
+                q: "Menjelang pemilihan ketua OSIS, tim sukses dari calon X secara sembunyi-sembunyi menyebarkan rumor bohong (black campaign) lewat selebaran anonim untuk menjatuhkan mental calon Y. Sikap tersembunyi yang penuh kebencian dan keraguan namun belum jadi konflik fisik ini disebut...",
+                options: ["Persaingan", "Kontravensi", "Konflik", "Kooptasi", "Koalisi"],
+                answer: 1,
+                explanation: "Kontravensi adalah bentuk interaksi disosiatif yang berada di antara persaingan dan konflik, ditandai dengan gejala ketidakpastian, keraguan, penolakan, atau penyebaran rumor secara rahasia."
+            },
+            {
+                q: "Karena sengketa lahan parkir, dua kelompok pemuda kampung tetangga saling baku hantam dan merusak fasilitas warga. Proses sosial dimana individu atau kelompok berusaha memenuhi tujuannya dengan jalan menentang pihak lawan disertai ancaman/kekerasan fisik ini adalah...",
+                options: ["Kompetisi", "Kontravensi", "Pertentangan (Konflik)", "Akomodasi", "Arbitrase"],
+                answer: 2,
+                explanation: "Konflik (pertentangan) adalah proses disosiatif ekstrim dimana pihak-pihak yang terlibat berusaha saling menghancurkan, disertai dengan ancaman fisik dan kekerasan."
+            },
+            {
+                q: "Setiap hari Minggu pagi, warga RT 05 berkumpul membawa cangkul dan sapu untuk bersama-sama membersihkan selokan desa agar tidak banjir. Bentuk kerja sama (interaksi asosiatif) asli masyarakat Indonesia ini disebut...",
+                options: ["Bargaining", "Kooptasi", "Koalisi", "Gotong Royong", "Joint Venture"],
+                answer: 3,
+                explanation: "Gotong royong (kerukunan) adalah bentuk kerja sama tradisional yang berasaskan kekeluargaan dan tolong-menolong tanpa pamrih."
+            },
+            {
+                q: "Dua partai politik yang awalnya bersaing akhirnya memutuskan untuk bergabung membentuk satu kubu bersama demi memenangkan kursi pemilihan presiden. Bentuk peleburan dua kekuatan atau lebih menjadi satu kesatuan ini disebut...",
+                options: ["Kooptasi", "Koalisi", "Joint Venture", "Bargaining", "Asimilasi"],
+                answer: 1,
+                explanation: "Koalisi (coalition) adalah perpaduan dua kelompok atau lebih (biasanya organisasi politik) yang memiliki tujuan yang sama untuk memperkuat diri."
+            },
+            {
+                q: "Perusahaan elektronik dari Jepang dan pengembang baterai dari Amerika sepakat mendirikan pabrik mobil listrik bersama di Indonesia dengan pembagian modal dan keuntungan. Kerja sama dalam pengusahaan proyek tertentu ini disebut...",
+                options: ["Joint Venture", "Koalisi", "Kooptasi", "Bargaining", "Merger"],
+                answer: 0,
+                explanation: "Joint Venture (usaha patungan) adalah kerja sama beberapa pihak untuk menyelenggarakan proyek bisnis tertentu demi keuntungan ekonomi."
+            },
+            {
+                q: "Buruh pabrik tekstil mogok kerja menuntut kenaikan gaji. Karena perundingan buntu, pengusaha dan buruh memanggil wakil dari Dinas Tenaga Kerja (Disnaker) sebagai pihak ketiga. Keputusan yang diambil Disnaker ini bersifat mengikat dan harus dipatuhi. Bentuk akomodasi ini adalah...",
+                options: ["Mediasi", "Arbitrase", "Konsiliasi", "Kompromi", "Ajudikasi"],
+                answer: 1,
+                explanation: "Arbitrase melibatkan pihak ketiga yang memiliki kedudukan lebih tinggi/berwenang untuk memberikan keputusan yang mengikat guna menyelesaikan konflik."
+            },
+            {
+                q: "Tetangga A sering memutar musik keras-keras, sementara tetangga B butuh ketenangan. Setelah berunding, tetangga A bersedia mengecilkan volumenya setelah jam 8 malam, dan tetangga B tidak akan marah-marah lagi. Bentuk penyelesaian dimana kedua belah pihak saling mengurangi tuntutan adalah...",
+                options: ["Toleransi", "Kompromi", "Mediasi", "Konsiliasi", "Stalemate"],
+                answer: 1,
+                explanation: "Kompromi adalah bentuk akomodasi di mana pihak-pihak yang terlibat perselisihan saling mengurangi tuntutan demi mencapai penyelesaian."
+            },
+            {
+                q: "Konflik antara blok Barat (AS) dan blok Timur (Uni Soviet) pada era Perang Dingin akhirnya mereda sendiri karena kedua belah pihak menyadari mereka memiliki senjata nuklir yang sama kuat, yang jika diledakkan akan menghancurkan keduanya. Keadaan berhentinya konflik karena kekuatan yang seimbang (jalan buntu) disebut...",
+                options: ["Kompromi", "Arbitrase", "Gencatan Senjata", "Stalemate", "Segregasi"],
+                answer: 3,
+                explanation: "Stalemate terjadi ketika pihak-pihak yang berkonflik memiliki kekuatan yang seimbang sehingga konflik berhenti dengan sendirinya pada titik tertentu (deadlock)."
+            },
+            {
+                q: "Kakak dan adik bertengkar hebat memperebutkan harta warisan orang tuanya yang tidak ada wasiatnya. Karena keluarga tidak bisa mendamaikan, akhirnya mereka membawa kasus ini ke Pengadilan Agama untuk diputuskan hakim. Penyelesaian konflik melalui jalur pengadilan hukum disebut...",
+                options: ["Arbitrase", "Mediasi", "Konsiliasi", "Ajudikasi", "Koersi"],
+                answer: 3,
+                explanation: "Ajudikasi adalah penyelesaian sengketa atau konflik melalui meja hijau atau pengadilan hukum formal."
+            },
+            {
+                q: "Masyarakat Tionghoa yang lama menetap di Semarang memiliki kesenian gambang kromong yang merupakan perpaduan antara alat musik tradisional Tiongkok dengan gamelan Jawa, tanpa menghilangkan identitas budaya masing-masing. Proses perpaduan dua kebudayaan ini disebut...",
+                options: ["Asimilasi", "Akulturasi", "Akomodasi", "Amalgamasi", "Adaptasi"],
+                answer: 1,
+                explanation: "Akulturasi adalah perpaduan unsur-unsur dua kebudayaan atau lebih menjadi satu kebudayaan baru tanpa menghilangkan kepribadian (ciri khas) kebudayaan aslinya (A+B=AB)."
+            },
+            {
+                q: "Orang-orang dari suku bangsa A pindah ke daerah suku bangsa B. Lama kelamaan, generasi keturunan A tidak lagi bisa berbahasa asal mereka dan sepenuhnya mengadopsi budaya suku B hingga perbedaan keduanya lenyap menjadi budaya baru. Proses peleburan yang menghilangkan ciri asli disebut...",
+                options: ["Akulturasi", "Asimilasi", "Inovasi", "Difusi", "Amalgamasi"],
+                answer: 1,
+                explanation: "Asimilasi adalah pembauran dua kebudayaan atau lebih yang disertai dengan hilangnya ciri khas kebudayaan asli sehingga membentuk kebudayaan baru yang seragam (A+B=C)."
+            },
+            {
+                q: "Pak RT sedang berjalan sendiri di gang sambil bergumam dan mengeluhkan harga sembako yang naik setelah membaca koran pagi. Apakah tindakan Pak RT yang berbicara sendiri ini termasuk interaksi sosial?",
+                options: ["Ya, karena ia merespons isi berita di koran", "Ya, karena terjadi aktivitas otak yang kompleks", "Tidak, karena tidak ada kontak dan komunikasi dengan individu lain", "Tidak, karena koran adalah benda mati bukan manusia", "Keduanya benar (C dan D)"],
+                answer: 4,
+                explanation: "Interaksi sosial mensyaratkan adanya pihak (manusia) lain yang merespons. Berbicara sendiri tidak memenuhi syarat kontak sosial antar-individu."
+            },
+            {
+                q: "Dalam proses pembelajaran, guru (komunikator) menjelaskan materi, dan siswa (komunikan) memahaminya. Pengetahuan atau informasi yang disampaikan oleh guru kepada siswanya dalam unsur komunikasi disebut...",
+                options: ["Komunikan", "Media", "Feedback", "Pesan (Message)", "Efek"],
+                answer: 3,
+                explanation: "Pesan (message) adalah ide, gagasan, informasi, atau perasaan yang disampaikan oleh komunikator kepada komunikan."
+            },
+            {
+                q: "Ketika Bu Dosen menerangkan tentang sosiologi pedesaan, seorang mahasiswa mengangkat tangan dan mengangguk setuju dengan penjelasan tersebut. Anggukan kepala mahasiswa ini merupakan respons yang dalam unsur komunikasi disebut...",
+                options: ["Pesan", "Media", "Encoding", "Umpan Balik (Feedback)", "Noise (Gangguan)"],
+                answer: 3,
+                explanation: "Umpan balik (feedback) adalah reaksi atau tanggapan dari komunikan terhadap pesan yang disampaikan oleh komunikator."
+            },
+            {
+                q: "Dina mengirim pesan DM Instagram kepada Cinta, tetapi Cinta belum membuka aplikasi tersebut sehingga pesan itu baru dibalas keesokan harinya. Kontak sosial menggunakan alat namun tertunda pesannya seperti ini bersifat...",
+                options: ["Langsung", "Tidak Langsung", "Primer", "Sekunder Langsung", "Sekunder Tidak Langsung"],
+                answer: 4,
+                explanation: "Kontak sekunder tidak langsung terjadi ketika pihak-pihak berinteraksi menggunakan perantara (alat/orang) dan tidak terjadi dalam waktu yang bersamaan (ada jeda waktu)."
+            },
+            {
+                q: "Dalam sebuah diskusi Karang Taruna, terjadi perdebatan keras antara panitia mengenai susunan acara. Namun di akhir rapat, mereka saling meminta maaf dan sepakat dengan keputusan bersama. Hal ini menunjukkan bahwa interaksi sosial bersifat...",
+                options: ["Statis", "Membelah", "Dinamis", "Disosiatif murni", "Asosiatif murni"],
+                answer: 2,
+                explanation: "Interaksi sosial bersifat dinamis, artinya dapat berubah-ubah bentuknya, dari yang awalnya berkonflik (disosiatif) bisa berubah menjadi kerja sama atau akomodasi (asosiatif)."
+            },
+            {
+                q: "Kata 'kontak' yang merupakan syarat utama interaksi sosial, berasal dari bahasa Latin 'con' atau 'cum' yang artinya bersama-sama, dan 'tango' yang memiliki arti harfiah...",
+                options: ["Berbicara", "Menyentuh", "Melihat", "Mendengar", "Bertemu"],
+                answer: 1,
+                explanation: "Secara etimologis, bahasa latin 'tango' berarti menyentuh. Meskipun dalam sosiologi modern, kontak tidak harus selalu berupa sentuhan fisik."
+            }
+        ];
+
+        const questionsContainer = document.getElementById('questions-container');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultsContainer = document.getElementById('results-container');
+        let quizSubmitted = false;
+
+        // Render Pertanyaan
+        function renderQuestions() {
+            quizData.forEach((item, index) => {
+                const letters = ['A', 'B', 'C', 'D', 'E'];
+                let optionsHTML = '';
+                
+                item.options.forEach((opt, optIndex) => {
+                    optionsHTML += `
+                        <label class="option-label block p-3 sm:p-4 border border-gray-200 rounded-xl relative group">
+                            <input type="radio" name="q${index}" value="${optIndex}" class="option-input absolute opacity-0 w-0 h-0">
+                            <div class="flex-container flex items-start">
+                                <span class="option-letter shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg border-2 border-gray-300 text-sm font-bold mr-4 text-gray-600 transition-colors bg-white">${letters[optIndex]}</span>
+                                <span class="option-text text-gray-700 leading-snug pt-1 text-base transition-colors">${opt}</span>
+                            </div>
+                        </label>
+                    `;
+                });
+
+                const questionHTML = `
+                    <div class="question-card bg-white border border-gray-200 rounded-2xl p-6 sm:p-8" id="q-block-${index}">
+                        <div class="flex gap-4 mb-5">
+                            <div class="shrink-0 bg-blue-100 text-blue-800 font-bold px-4 py-1.5 rounded-lg h-fit">
+                                ${index + 1}
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-medium text-gray-800 leading-relaxed">${item.q}</h3>
+                        </div>
+                        <div class="space-y-3 pl-0 sm:pl-16">
+                            ${optionsHTML}
+                        </div>
+                        <!-- Area Pembahasan -->
+                        <div class="hidden mt-6 pl-0 sm:pl-16" id="feedback-${index}">
+                            <div class="feedback-status text-sm font-bold uppercase tracking-wide mb-2"></div>
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-gray-700 text-sm leading-relaxed">
+                                <span class="font-bold text-gray-900 block mb-1">Pembahasan:</span>
+                                ${item.explanation}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                questionsContainer.innerHTML += questionHTML;
+            });
+        }
+
+        function setupEventListeners() {
+            // Efek pilihan radio
+            document.querySelectorAll('.option-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    if(quizSubmitted) return; // Kunci jika sudah disubmit
+                    const name = this.name;
+                    
+                    // Reset styling label yang sekelompok
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
+                        const label = inp.closest('.option-label');
+                        label.classList.remove('selected-option');
+                    });
+                    
+                    // Tambah class ke yang dipilih
+                    if(this.checked) {
+                        const label = this.closest('.option-label');
+                        label.classList.add('selected-option');
+                    }
+                });
+            });
+
+            // Handle Submit
+            submitBtn.addEventListener('click', calculateAndShowResults);
+
+            // Scroll Review Button
+            document.getElementById('review-btn').addEventListener('click', () => {
+                document.getElementById('q-block-0').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
+        function calculateAndShowResults() {
+            // 1. Validasi Identitas Siswa
+            const namaInput = document.getElementById('nama').value.trim();
+            const kelasInput = document.getElementById('kelas').value.trim();
+            const absenInput = document.getElementById('absen').value.trim();
+
+            if (!namaInput || !kelasInput || !absenInput) {
+                alert("Mohon lengkapi Data Diri (Nama, Kelas, No. Absen) terlebih dahulu sebelum mengumpulkan kuis.");
+                // Scroll kembali ke atas formulir identitas
+                document.getElementById('nama').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                document.getElementById('nama').focus();
+                return;
+            }
+
+            // 2. Cek kelengkapan jawaban
+            let answeredCount = 0;
+            for(let i=0; i<quizData.length; i++) {
+                if(document.querySelector(`input[name="q${i}"]:checked`)) answeredCount++;
+            }
+
+            if(answeredCount < quizData.length) {
+                const konfirmasi = confirm(`Anda baru menjawab ${answeredCount} dari ${quizData.length} soal.\nApakah Anda yakin ingin menyelesaikan kuis sekarang?`);
+                if(!konfirmasi) return; // Batal submit jika tidak yakin
+            }
+
+            quizSubmitted = true;
+            let score = 0;
+            let correctAnswers = 0;
+            let incorrectAnswers = 0;
+            let unansweredAnswers = 0;
+            
+            const maxScorePerQuestion = 100 / quizData.length; // 2 poin per soal
+
+            quizData.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const feedbackDiv = document.getElementById(`feedback-${index}`);
+                const statusDiv = feedbackDiv.querySelector('.feedback-status');
+                
+                // Disable inputs
+                document.querySelectorAll(`input[name="q${index}"]`).forEach(inp => {
+                    inp.disabled = true;
+                    inp.closest('.option-label').classList.remove('cursor-pointer');
+                });
+
+                const correctInput = document.querySelector(`input[name="q${index}"][value="${item.answer}"]`);
+                const correctLabel = correctInput.closest('.option-label');
+
+                if (selected) {
+                    const selectedValue = parseInt(selected.value);
+                    const selectedLabel = selected.closest('.option-label');
+
+                    if (selectedValue === item.answer) {
+                        // Benar
+                        score += maxScorePerQuestion;
+                        correctAnswers++;
+                        selectedLabel.classList.add('correct-answer');
+                        selectedLabel.classList.remove('selected-option');
+                        
+                        statusDiv.innerHTML = '✅ Jawaban Anda Benar';
+                        statusDiv.classList.add('text-green-600');
+                    } else {
+                        // Salah
+                        incorrectAnswers++;
+                        selectedLabel.classList.add('incorrect-answer');
+                        selectedLabel.classList.remove('selected-option');
+                        correctLabel.classList.add('correct-answer'); // Tunjukkan yang benar
+                        
+                        statusDiv.innerHTML = '❌ Jawaban Anda Salah';
+                        statusDiv.classList.add('text-red-600');
+                    }
+                } else {
+                    // Kosong
+                    unansweredAnswers++;
+                    correctLabel.classList.add('correct-answer');
+                    
+                    statusDiv.innerHTML = '⚠️ Tidak Dijawab';
+                    statusDiv.classList.add('text-yellow-600');
+                }
+                
+                // Tampilkan pembahasan
+                feedbackDiv.classList.remove('hidden');
+                feedbackDiv.classList.add('block');
+            });
+
+            // 3. Masukkan Data Identitas ke Halaman Hasil
+            document.getElementById('res-nama').innerText = namaInput;
+            document.getElementById('res-kelas').innerText = kelasInput;
+            document.getElementById('res-absen').innerText = absenInput;
+
+            // 4. Update UI dan Tampilkan Hasil
+            document.getElementById('submit-btn').parentElement.style.display = 'none';
+            
+            // Sembunyikan form input identitas agar tidak bisa diedit setelah submit
+            document.getElementById('nama').disabled = true;
+            document.getElementById('kelas').disabled = true;
+            document.getElementById('absen').disabled = true;
+
+            resultsContainer.style.display = 'block';
+            
+            // Animasi nilai sederhana (counter)
+            let currentScore = 0;
+            const targetScore = Math.round(score);
+            const scoreElement = document.getElementById('final-score');
+            
+            const scoreInterval = setInterval(() => {
+                if(currentScore >= targetScore) {
+                    clearInterval(scoreInterval);
+                    scoreElement.innerText = targetScore;
+                } else {
+                    currentScore += Math.ceil(targetScore/20) || 1; // Increment step
+                    if(currentScore > targetScore) currentScore = targetScore;
+                    scoreElement.innerText = currentScore;
+                }
+            }, 30);
+
+            document.getElementById('correct-count').innerText = correctAnswers;
+            document.getElementById('incorrect-count').innerText = incorrectAnswers;
+            document.getElementById('unanswered-count').innerText = unansweredAnswers;
+
+            // Pesan Evaluasi
+            const feedbackBox = document.getElementById('feedback-box');
+            const feedbackMessage = document.getElementById('feedback-message');
+            
+            if (targetScore >= 85) {
+                feedbackBox.className = "p-4 rounded-xl mb-8 inline-block bg-green-100 border border-green-200 text-green-800";
+                feedbackMessage.innerText = "🌟 Luar Biasa! Pemahaman sosiologi Anda setingkat pengamat sosial.";
+            } else if (targetScore >= 70) {
+                feedbackBox.className = "p-4 rounded-xl mb-8 inline-block bg-blue-100 border border-blue-200 text-blue-800";
+                feedbackMessage.innerText = "👍 Bagus Sekali! Anda sudah menguasai konsep dasar dengan baik.";
+            } else if (targetScore >= 50) {
+                feedbackBox.className = "p-4 rounded-xl mb-8 inline-block bg-yellow-100 border border-yellow-200 text-yellow-800";
+                feedbackMessage.innerText = "📚 Cukup. Perlu sedikit membaca ulang teori dari tokoh klasik.";
+            } else {
+                feedbackBox.className = "p-4 rounded-xl mb-8 inline-block bg-red-100 border border-red-200 text-red-800";
+                feedbackMessage.innerText = "💪 Jangan menyerah! Mari baca kembali rangkuman materi dari awal.";
+            }
+
+            // Scroll ke hasil
+            setTimeout(() => {
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
+        }
+
+        // Inisialisasi saat halaman dimuat
+        window.onload = () => {
+            renderQuestions();
+            setupEventListeners();
+        };
+    </script>
+</body>
+</html>
